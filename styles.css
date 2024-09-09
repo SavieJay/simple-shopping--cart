@@ -97,14 +97,35 @@ img {
   max-width: 9.375rem;
   width: 100%;
   background-color: var(--red);
+  color: white;
 }
-.quantity svg,
-.product-quantity {
+.quantity svg {
   color: white;
   font-weight: 700;
   width: 1.5625rem;
+  background-color: none;
 }
-p.product-quantity {
+
+.quantity button {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  border: white 2px solid;
+  text-align: center;
+}
+
+.quantity button:hover {
+  background-color: white;
+}
+.quantity svg:hover {
+  color: var(--red);
+}
+
+/* ? End of Cart */
+
+p.quantity {
   text-align: center;
 }
 
@@ -133,7 +154,7 @@ h2 {
   width: 100%;
 }
 
-#clear-cart {
+#remove-item {
   display: flex;
   align-items: center;
   gap: 0.625rem;

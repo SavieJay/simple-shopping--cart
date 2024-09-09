@@ -23,7 +23,7 @@ function cartproducts() {
           )}</span>
         </div>
 
-        <button id="clear-cart" onclick="removeFromCart(${item.id})">
+        <button id="remove-item" onclick="removeFromCart(${item.id})">
          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
          width="24" height="24" fill="none" viewBox="0 0 24 24">
          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -42,6 +42,7 @@ async function fetchData() {
   const data = await response.json();
 
   allProducts.push(...data);
+
   return data;
 }
 
@@ -61,7 +62,7 @@ async function displayProduct() {
         <img src=${item.image.desktop} alt=${item.name}>
       </div>
       ${
-        cartState[item.id] && cartState[item.id].quantity > 0
+        cartState[item.id] && cartState[item.id]?.quantity > 0
           ? incrementCartButton(item.id) // Show quantity controls if item is in cart
           : addToCartButton(item.id) // Show "Add to Cart" if item not in cart
       }
@@ -74,7 +75,7 @@ displayProduct();
 // Existing addToCartButton function (unchanged)
 function addToCartButton(id) {
   return `
-    <button class="add-to-cart" onclick="addToCart(${id})" data-key=${id}>
+    <button class="add-to-cart" data-key=${id}>
       <p>Add to cart</p>
     </button>
   `;
@@ -84,7 +85,7 @@ function addToCartButton(id) {
 function incrementCartButton(id) {
   const quantity = cartState[id]?.quantity || 1; // Ensure quantity is not undefined
   return `
-    <div class="quantity-container">
+    <div class="quantity add-to-cart">
       <button onclick="decrementQuantity(${id})">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -103,57 +104,14 @@ function incrementCartButton(id) {
   `;
 }
 
-// New addToCart function (initialize product quantity in cartState)
-function addToCart(id) {
-  const product = allProducts.find((product) => product.id == id);
-  if (!cartState[id]) {
-    cartState[id] = { ...product, quantity: 1 }; // Initialize quantity
-  } else {
-    cartState[id].quantity++; // Increment if already in cart
-  }
-  updateCartDisplay();
-  displayProduct(); // Re-render products
-}
-
-// Existing incrementQuantity function (modified to update cart)
-function incrementQuantity(id) {
-  if (cartState[id]) {
-    cartState[id].quantity++;
-    updateCartDisplay();
-    displayProduct(); // Re-render products to reflect quantity change
-  }
-}
-
-// Modified decrementQuantity function to handle zero quantity and remove from cart
-function decrementQuantity(id) {
-  if (cartState[id] && cartState[id].quantity > 1) {
-    cartState[id].quantity--;
-  } else {
-    delete cartState[id]; // Remove from cart if quantity is zero
-  }
-  updateCartDisplay();
-  displayProduct(); // Re-render products to show "Add to Cart" button
-}
-
-// New removeFromCart function (to handle the cancel icon)
-function removeFromCart(id) {
-  delete cartState[id]; // Remove item from cart
-  updateCartDisplay();
-  displayProduct(); // Re-render products
-}
-
-// Update cart display (used in multiple places to reflect changes in the cart)
-function updateCartDisplay() {
-  cartproducts(); // Update the cart UI
-  numOfCartItems.innerHTML = `Your Cart (${Object.keys(cartState).length})`; // Update cart item count
-}
-
 // Existing product click handler (modified to work with updated logic)
 products.addEventListener("click", (event) => {
+  event.preventDefault();
   const productId = event.target.closest(".add-to-cart").dataset.key;
 
   product = allProducts.find((product) => product.id == productId);
 
+  console.log("product", product);
   const productInCart = cartState.find((product) => product?.id == productId);
   if (productInCart) {
     // If the product is already in the cart, increase its quantity
@@ -165,8 +123,28 @@ products.addEventListener("click", (event) => {
     cartState.push({ ...product, quantity: 1 });
   }
 
+  console.log("Cart State:", cartState);
+
   numOfCartItems.innerHTML =
     cartState.length >= 1 && `Your Cart (${cartState.length})`;
 
   cartproducts();
+
+  // displayProduct();
 });
+
+// function to remove from cart
+
+function removeFromCart(id) {
+  // console.log("removing from cart", id);
+  const item = cartState.findIndex(
+    (product) => toString(product.id) == toString(id)
+  );
+
+  cartState.splice(item, 1);
+
+  cartproducts();
+  numOfCartItems.innerHTML =
+    cartState.length >= 1 ? `Your Cart (${cartState.length})` : "Your Cart (0)";
+  console.log("item is", item);
+}

@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --red: hsl(14, 86%, 42%);
+  --green: hsl(159, 69%, 38%);
+  --rose-50: hsl(20, 50%, 98%);
+  --rose-100: hsl(13, 31%, 94%);
+  --rose-300: hsl(14, 25%, 72%);
+  --rose-400: hsl(7, 20%, 60%);
+  --rose-500: hsl(12, 20%, 44%);
+  --rose-900: hsl(14, 65%, 9%);
+}
+
+body {
+  max-width: 90rem;
+  margin: auto;
+  background-color: var(--rose-100);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  /* border: solid green 2px; */
+  width: 100%;
+  margin-inline: auto;
+}
+.container div:first-child {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 70%;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.625rem;
+  padding: 0.625rem;
+}
+
+.cart {
+  flex-grow: 1;
+  flex-basis: 30%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  height: 600px;
+  position: sticky;
+  top: 50px;
+  overflow-y: scroll;
+  background-color: whitesmoke;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 0.3125rem;
+}
+
+/*? Start of Cart */
+.add-to-cart {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+  border: solid gray 0.0625rem;
+  border-radius: 1.875rem;
+  width: fit-content;
+  padding: 0.5rem 0.9375rem;
+  bottom: 1.25rem;
+  margin: 0 auto;
+}
+
+.add-to-cart svg {
+  width: 1.25rem;
+  color: var(--red);
+}
+
+.quantity {
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 0.3125rem;
+  padding-block: 0.3125rem;
+  max-width: 9.375rem;
+  width: 100%;
+  background-color: var(--red);
+}
+.quantity svg,
+.product-quantity {
+  color: white;
+  font-weight: 700;
+  width: 1.5625rem;
+}
+p.product-quantity {
+  text-align: center;
+}
+
+h2 {
+  color: var(--red);
+}
+
+/* ? product cart section styles */
+
+/* .cart-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem;
+  background-color: var(--rose-50);
+  border-radius: 0.3125rem;
+} */
+
+.cart-header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.625rem;
+  /* border: solid red 2px; */
+  width: 100%;
+}
+
+#clear-cart {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  cursor: pointer;
+  border: none;
+}
+
+.cart-header div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* border: solid red 2px; */
+}
+
+.cart-header div.pricing {
+  display: inline-block;
+  gap: 1.875rem;
+}

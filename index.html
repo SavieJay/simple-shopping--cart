@@ -20,9 +20,9 @@
 <body>
 
   <div class="container">
-    <div>
+    <div class="">
       <header>
-        <h1>Deserts</h1>
+        <h1>Desserts</h1>
       </header>
       <div id="products">
       </div>
@@ -34,38 +34,80 @@
       <h2 class="num-of-items">
         Your Cart (0)
       </h2>
-      <div class="cart-header">
-        <!-- <div>
-          <h3>Item</h3>
-          <div>
-            <span class="amount">1x</span>
-            <span class="price">@$5.50</span>
-            <span class="total">$5.50</span>
-          </div>
-        </div> -->
-        <!-- <button id="clear-cart">
-          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
 
-        </button> -->
-        <div class="total">
+      <div>
+        <div class="empty-cart">
+          <img src="./assets/images/illustration-empty-cart.svg" alt="">
+          <p>Your added items will appear here</p>
+        </div>
+
+        <div class="cart-header">
+
+        </div>
+        <div class="totalCost">
 
         </div>
       </div>
-
     </div>
   </div>
   </div>
 
+  <div class="overlay">
 
 
-  <!-- <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
-    Coded by <a href="#">Your Name Here</a>.
-  </div> -->
+    <div class="cart-checkout">
+      <div>
+        <img src="./assets/images/icon-order-confirmed.svg" alt="icon-order-confirmed">
+      </div>
+      <div>
+        <h2>Order confirmed</h2>
+        <p>We hope you enjoy your food!</p>
+      </div>
+
+      <div>
+        <div class="confirm-items">
+          <div class="confirm-item">
+            <div>
+              <img src="./assets/images/image-baklava-thumbnail.jpg" alt="">
+              <div>
+                <p>fhewfsfgsjgfs</p>
+                <span>1x <span>@5.50</span></span>
+              </div>
+            </div>
+            <p>$5.50</p>
+          </div>
+        </div>
+        <!-- <div class="confirm-item">
+          <div>
+            <img src="./assets/images/image-baklava-thumbnail.jpg" alt="">
+            <div>
+              <p>fhewfsfgsjgfs</p>
+              <span>1x <span>@5.50</span></span>
+            </div>
+          </div>
+          <p>$5.50</p>
+        </div> -->
+        <div class="order-total">
+          <p>Order Total</p>
+          <span id="totalcost">$0.00</span>
+        </div>
+      </div>
+
+      <button class="confirm-order order-text" onclick="resetCart()">
+        Start New Order
+      </button>
+    </div>
+
+  </div>
+
+  </div>
+
+
+
+  <!-- <div class=" attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+        Coded by <a href="#">Your Name Here</a>.
+      </div> -->
   <script src="./script.js"></script>
 
 

@@ -3,7 +3,6 @@ let products = document.querySelector("#products");
 let overLay = document.querySelector(".overlay");
 let product = document.querySelectorAll(".product");
 let allProducts = [];
-let cartState = []; // Track cart state for each product
 let allCartProducts = document.querySelector(".cart-header");
 let numOfCartItems = document.querySelector(".num-of-items");
 let neworderConfirmation = document.querySelector(".confirm-items");
@@ -11,8 +10,12 @@ let neworderConfirmation = document.querySelector(".confirm-items");
 let confirmTotal = document.querySelector(".order-total > span");
 let emptyCart = document.querySelector(".empty-cart");
 let totalCost = document.querySelector(".totalCost");
+
+// loc
+let cartState = JSON.parse(localStorage.getItem("data")) || [];
 console.log(cartState);
 
+// Track cart state for each product
 // Your existing cartproducts function
 
 function cartproducts() {
@@ -89,6 +92,7 @@ function displayProduct() {
       </div>
     `;
     products.appendChild(div);
+    storeProducts();
   });
 }
 
@@ -143,11 +147,12 @@ products.addEventListener("click", (event) => {
 
   if (product) {
     cartState.push({ ...product, quantity: 1 });
+    storeProducts();
   }
-
   if (cartState.length > 0) {
     emptyCart.style.display = "none";
     calculateTotal();
+    storeProducts();
   } else {
     emptyCart.style.display = "block";
   }
@@ -163,6 +168,14 @@ function updateCartUI() {
     cartState.length >= 1
       ? `Your Cart (${quantityOfItemsInCart()})`
       : "Your Cart (0)";
+
+  if (cartState.length > 0) {
+    cartState.length > 0 && (emptyCart.style.display = "none");
+  }
+
+  // cartState.length > 0 && confirmOrder();
+
+  storeProducts();
   cartproducts();
   displayProduct(); // Update only the cart display
 }
@@ -177,6 +190,7 @@ function removeFromCart(id) {
   if (!item && !cartState.length > 0) {
     emptyCart.style.display = "block";
   }
+  storeProducts();
   updateCartUI();
   calculateTotal();
 }
@@ -189,6 +203,7 @@ function incrementQuantity(id) {
 
   // Update the cart UI and product list UI
   updateCartUI(); // Refresh product UI to show the updated quantity
+  storeProducts();
 }
 
 // Function to decrement quantity
@@ -209,6 +224,7 @@ function decrementQuantity(id) {
 
     // Update the cart UI and product list UI
     updateCartUI(); // Refresh product UI to show the updated button
+    storeProducts();
   }
 }
 
@@ -217,9 +233,12 @@ function calculateTotal() {
 
   updateCartUI();
 }
+calculateTotal();
 
 function quantityOfItemsInCart() {
-  return cartState.reduce((total, item) => total + item.quantity, 0);
+  let total = cartState.reduce((total, item) => total + item.quantity, 0);
+  storeProducts();
+  return total;
 }
 
 function confirmOrder() {
@@ -228,6 +247,7 @@ function confirmOrder() {
     total += item.price * item.quantity;
   });
   confirmTotal.innerHTML = `$${total.toFixed(2)}`;
+  storeProducts();
   return `
   <div class="order-total">
   <p>Order Total</p> 
@@ -267,7 +287,9 @@ function neworder() {
               </span>
             </div>
           </div>
-          <p class="checkout-total">$${(item?.price * item?.quantity).toFixed(2)}</p>
+          <p class="checkout-total">$${(item?.price * item?.quantity).toFixed(
+            2
+          )}</p>
         </div>
       `
     );
@@ -282,10 +304,19 @@ overLay.addEventListener("click", (event) => {
 
 function resetCart() {
   cartState = [];
+
   overLay.style.display = "none";
   emptyCart.style.display = "block";
   neworderConfirmation.innerHTML = "";
   totalCost.innerHTML = "";
 
+  // storeProducts();
   updateCartUI();
 }
+
+function storeProducts() {
+  localStorage.setItem("data", JSON.stringify(cartState));
+}
+
+updateCartUI();
+storeProducts();

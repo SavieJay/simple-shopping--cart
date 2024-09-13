@@ -138,6 +138,37 @@ body {
   color: var(--red);
 }
 
+.checkout-con {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+h3 {
+  font-size: 2.1rem;
+  color: var(--rose-900);
+}
+.enjoy {
+  font-size: .9rem;
+  color: var(--rose-400)
+}
+.checkout-name {
+  color: var(--rose-900);
+  font-weight: 600;
+}
+.checkout-quan {
+  color: var(--red);
+  font-weight: 600;
+  font-size: .9rem;
+}
+.checkout-price {
+  color: var(--rose-500);
+  font-size: .9rem;
+  padding-inline: .4rem;
+}
+.checkout-total {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
 /* ? End of Product information styles */
 
 .container {
@@ -375,9 +406,14 @@ span.total {
   font-weight: 400;
   font-size: 17.6px;
 }
+div.order-total p {
+  color: var(--rose-900);
+  font-weight: 500;
+}
 #totalcost {
   font-size: 32px;
   font-weight: 700;
+  color: var(--rose-900);
 }
 
 .carbon-free {

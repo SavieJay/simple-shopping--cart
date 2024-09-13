@@ -260,12 +260,14 @@ function neworder() {
       <div class="confirm-item">
           <div>
             <img src=${item?.image?.thumbnail} alt=${item?.name}>
-            <div>
-              <p>${item?.name}</p>
-              <span>${item?.quantity}x<span>@${item?.price}</span></span>
+            <div class="checkout-con">
+              <p class="checkout-name">${item?.name}</p>
+              <span class="checkout-quan">${item?.quantity}x
+                <span class="checkout-price">@${item?.price}</span>
+              </span>
             </div>
           </div>
-          <p>$${(item?.price * item?.quantity).toFixed(2)}</p>
+          <p class="checkout-total">$${(item?.price * item?.quantity).toFixed(2)}</p>
         </div>
       `
     );

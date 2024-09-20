@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Red Hat Text", sans-serif;
+  transition: .3s;
 }
 
 :root {
@@ -441,4 +442,21 @@ button.confirm-order {
 
 .cart-pricing h3 {
   font-size: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    padding: 2rem
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    flex-direction: column;
+    gap: 5rem;
+    padding: 2rem;
+  }  
+  .cart {
+    width: 100%;
+  }
 }

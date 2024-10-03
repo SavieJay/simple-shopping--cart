@@ -253,7 +253,6 @@ function confirmOrder() {
   <p>Order Total</p> 
   <span id="totalcost">$${total.toFixed(2)}</span>  
   </div>
-  success border
   <div class="carbon-free">
  <img src="./assets/images/icon-carbon-neutral.svg" alt="carbon">
  <p>This is a <span>carbon-neutral</span> delivery</p>
